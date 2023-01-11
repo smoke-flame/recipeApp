@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cookapp-staging-145827-authRole",
+      "UnauthRoleArn": "arn:aws:iam::926224781516:role/amplify-cookapp-staging-145827-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::926224781516:role/amplify-cookapp-staging-145827-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-cookapp-staging-145827-deployment",
+      "UnauthRoleName": "amplify-cookapp-staging-145827-unauthRole",
+      "StackName": "amplify-cookapp-staging-145827",
+      "StackId": "arn:aws:cloudformation:us-east-1:926224781516:stack/amplify-cookapp-staging-145827/3d3886f0-90f7-11ed-abee-0ecc2da87269",
+      "AmplifyAppId": "d2tcqxpxcz7882"
+    },
+    "categories": {
+      "auth": {
+        "cookApp": {}
+      }
+    }
+  }
+}
