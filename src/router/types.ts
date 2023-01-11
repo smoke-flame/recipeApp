@@ -8,6 +8,7 @@ export type RootStackParamList = {
   Feed: undefined;
   Welcome: undefined;
   SignIn: undefined;
+  SignUp: undefined;
 };
 
 export type RootRouteProps<RouteName extends keyof RootStackParamList> =

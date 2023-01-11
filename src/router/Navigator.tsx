@@ -20,6 +20,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import {IconsLibrary, RootStackParamList} from './types';
+import SignUpScreen from '../screens/SignUpScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,6 +42,7 @@ const GuestNavigation: FC = () => {
       <WelcomeStack.Navigator screenOptions={{headerShown: false}}>
         <WelcomeStack.Screen name="Welcome" component={WelcomeScreen} />
         <WelcomeStack.Screen name="SignIn" component={SignInScreen} />
+        <WelcomeStack.Screen name="SignUp" component={SignUpScreen} />
       </WelcomeStack.Navigator>
     </NavigationContainer>
   );

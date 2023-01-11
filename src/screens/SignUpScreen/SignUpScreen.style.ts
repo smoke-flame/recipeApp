@@ -5,27 +5,25 @@ import {spacing} from '../../helpers/spacing';
 export const styles = StyleSheet.create({
   root: {
     flex: 1,
-    paddingVertical: 100,
+    paddingVertical: 50,
     paddingHorizontal: 30,
     backgroundColor: colors.white,
   },
   title: {
     color: colors.textColor,
     fontWeight: '700',
-    fontSize: 32,
+    fontSize: 28,
     marginBottom: spacing(1),
   },
   subTitle: {
     color: colors.textColor,
     fontWeight: '400',
-    fontSize: fontSizes.xl,
+    fontSize: fontSizes.sm,
     marginBottom: 50,
+    maxWidth: 230,
   },
   input: {
     paddingVertical: 15,
-    marginBottom: 30,
-  },
-  lastInput: {
     marginBottom: 20,
   },
   forgot: {

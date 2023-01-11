@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 
 import {Text, TouchableOpacity, View} from 'react-native';
-import {styles} from './SignInScreen.style';
+import {styles} from './SignUpScreen.style';
 import UInput from '../../components/UInput';
 import {IFormValues} from './types';
 import UIButton from '../../components/UIButton';
@@ -13,10 +13,12 @@ import GoogleIcon from '../../assets/img/google.svg';
 import FacebookIcon from '../../assets/img/facebook.svg';
 import {Link} from '@react-navigation/native';
 
-const SignInScreen = () => {
+const SignUpScreen = () => {
   const [formValues, setFormValues] = useState<IFormValues>({
     email: '',
     password: '',
+    confirmPassword: '',
+    name: '',
   });
 
   const handleInputChange = useCallback(
@@ -35,8 +37,17 @@ const SignInScreen = () => {
 
   return (
     <View style={styles.root}>
-      <Text style={styles.title}>Hello,</Text>
-      <Text style={styles.subTitle}>Welcome back!</Text>
+      <Text style={styles.title}>Create an account</Text>
+      <Text style={styles.subTitle}>
+        Let’s help you set up your account, it won’t take long.
+      </Text>
+      <UInput
+        value={formValues.name}
+        onChangeText={value => handleInputChange('name', value)}
+        style={styles.input}
+        label="Name"
+        placeholder="Enter Name"
+      />
       <UInput
         value={formValues.email}
         onChangeText={value => handleInputChange('email', value)}
@@ -47,14 +58,22 @@ const SignInScreen = () => {
       <UInput
         value={formValues.password}
         onChangeText={value => handleInputChange('password', value)}
-        style={[styles.input, styles.lastInput]}
+        style={styles.input}
         label="Password"
         placeholder="Enter Password"
         secureTextEntry
       />
-      <Text style={styles.forgot}>Forgot password?</Text>
+      <UInput
+        value={formValues.confirmPassword}
+        onChangeText={value => handleInputChange('confirmPassword', value)}
+        style={styles.input}
+        label="Confirm Password"
+        placeholder="Retype Password"
+        secureTextEntry
+      />
+      {/*<Text style={styles.forgot}>Forgot password?</Text>*/}
       <UIButton
-        title="Sign in"
+        title="Sign up"
         icon={
           <AntDesignIcon name="arrowright" size={21} color={colors.white} />
         }
@@ -62,7 +81,7 @@ const SignInScreen = () => {
       />
       <View style={styles.orWrapper}>
         <View style={styles.orLine} />
-        <Text style={styles.orText}>Or Sign in With</Text>
+        <Text style={styles.orText}>Or Sign up With</Text>
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
@@ -70,18 +89,18 @@ const SignInScreen = () => {
           style={[styles.iconWrapper, styles.firstIconWrapper]}>
           <GoogleIcon width={24} height={24} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.iconWrapper} onPress={handleSocialAuth}>
+        <TouchableOpacity onPress={handleSocialAuth} style={styles.iconWrapper}>
           <FacebookIcon width={24} height={24} />
         </TouchableOpacity>
       </View>
       <Text style={styles.footerText}>
-        Don’t have an account?{' '}
-        <Link to="/SignUp" style={styles.link}>
-          Sign up
+        Already a member?{' '}
+        <Link to="/SignIn" style={styles.link}>
+          Sign in
         </Link>
       </Text>
     </View>
   );
 };
 
-export default SignInScreen;
+export default SignUpScreen;
