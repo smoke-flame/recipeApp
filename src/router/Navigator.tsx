@@ -21,6 +21,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import {IconsLibrary, RootStackParamList} from './types';
 import SignUpScreen from '../screens/SignUpScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +44,10 @@ const GuestNavigation: FC = () => {
         <WelcomeStack.Screen name="Welcome" component={WelcomeScreen} />
         <WelcomeStack.Screen name="SignIn" component={SignInScreen} />
         <WelcomeStack.Screen name="SignUp" component={SignUpScreen} />
+        <WelcomeStack.Screen
+          name="ResetPassword"
+          component={ResetPasswordScreen}
+        />
       </WelcomeStack.Navigator>
     </NavigationContainer>
   );

@@ -9,6 +9,7 @@ export type RootStackParamList = {
   Welcome: undefined;
   SignIn: undefined;
   SignUp: undefined;
+  ResetPassword: undefined;
 };
 
 export type RootRouteProps<RouteName extends keyof RootStackParamList> =

@@ -31,7 +31,7 @@ const SignInScreen = () => {
 
   const handleSocialAuth = useCallback(() => alert('Under constructions'), []);
 
-  const register = useCallback(() => alert('Under constructions'), []);
+  const signIn = useCallback(() => alert('Under constructions'), []);
 
   return (
     <View style={styles.root}>
@@ -52,13 +52,15 @@ const SignInScreen = () => {
         placeholder="Enter Password"
         secureTextEntry
       />
-      <Text style={styles.forgot}>Forgot password?</Text>
+      <Link to="/ResetPassword" style={styles.forgot}>
+        Forgot password?
+      </Link>
       <UIButton
         title="Sign in"
         icon={
           <AntDesignIcon name="arrowright" size={21} color={colors.white} />
         }
-        onPress={register}
+        onPress={signIn}
       />
       <View style={styles.orWrapper}>
         <View style={styles.orLine} />

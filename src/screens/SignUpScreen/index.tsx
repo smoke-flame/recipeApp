@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 
-import {Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './SignUpScreen.style';
 import UInput from '../../components/UInput';
 import {IFormValues} from './types';
@@ -33,10 +33,10 @@ const SignUpScreen = () => {
 
   const handleSocialAuth = useCallback(() => alert('Under constructions'), []);
 
-  const register = useCallback(() => alert('Under constructions'), []);
+  const signUp = useCallback(() => alert('Under constructions'), []);
 
   return (
-    <View style={styles.root}>
+    <ScrollView style={styles.root}>
       <Text style={styles.title}>Create an account</Text>
       <Text style={styles.subTitle}>
         Let’s help you set up your account, it won’t take long.
@@ -77,7 +77,7 @@ const SignUpScreen = () => {
         icon={
           <AntDesignIcon name="arrowright" size={21} color={colors.white} />
         }
-        onPress={register}
+        onPress={signUp}
       />
       <View style={styles.orWrapper}>
         <View style={styles.orLine} />
@@ -99,7 +99,7 @@ const SignUpScreen = () => {
           Sign in
         </Link>
       </Text>
-    </View>
+    </ScrollView>
   );
 };
 
