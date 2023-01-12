@@ -13,7 +13,7 @@ export const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       immutableCheck: {warnAfter: 128},
-      serializableCheck: {warnAfter: 128},
+      serializableCheck: false,
     }).concat(recipesAPI.middleware),
 });
 setupListeners(store.dispatch);

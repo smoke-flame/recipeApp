@@ -9,6 +9,9 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 30,
     backgroundColor: colors.white,
   },
+  back: {
+    marginBottom: 30,
+  },
   title: {
     color: colors.textColor,
     fontWeight: '700',
@@ -19,17 +22,18 @@ export const styles = StyleSheet.create({
     color: colors.textColor,
     fontWeight: '400',
     fontSize: fontSizes.sm,
-    marginBottom: 50,
+    marginBottom: 30,
     maxWidth: 230,
   },
   input: {
     paddingVertical: 15,
     marginBottom: 20,
   },
-  forgot: {
+  confirm: {
     color: '#FF9C00',
     fontSize: fontSizes.sm,
-    marginBottom: 25,
+    marginVertical: 10,
+    textAlign: 'center',
   },
   orWrapper: {
     position: 'relative',
@@ -60,7 +64,7 @@ export const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginBottom: 55,
+    marginBottom: 25,
   },
   icon: {
     width: 54,

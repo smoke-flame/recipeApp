@@ -3,4 +3,5 @@ export interface IFormValues {
   password: string;
   confirmPassword: string;
   name: string;
+  code: string;
 }

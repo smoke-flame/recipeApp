@@ -12,13 +12,21 @@ import GoogleIcon from '../../assets/img/google.svg';
 // @ts-ignore
 import FacebookIcon from '../../assets/img/facebook.svg';
 import {Link} from '@react-navigation/native';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import {useTypedNavigation} from '../../hooks/useTypedNavigation';
+import {Auth} from 'aws-amplify';
+import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 
 const SignUpScreen = () => {
+  const navigation = useTypedNavigation();
+  const [codeSent, setCodeSent] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [formValues, setFormValues] = useState<IFormValues>({
     email: '',
     password: '',
     confirmPassword: '',
     name: '',
+    code: '',
   });
 
   const handleInputChange = useCallback(
@@ -31,9 +39,116 @@ const SignUpScreen = () => {
     [],
   );
 
+  const back = useCallback(() => navigation.goBack(), [navigation]);
+
+  const moveToConfirm = useCallback(() => setCodeSent(true), []);
+
   const handleSocialAuth = useCallback(() => alert('Under constructions'), []);
 
-  const signUp = useCallback(() => alert('Under constructions'), []);
+  const signUp = useCallback(async () => {
+    const {name, confirmPassword, password, email} = formValues;
+    if (password !== confirmPassword) {
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: "Confirm password doesn't match",
+      });
+      return;
+    }
+    try {
+      setLoading(true);
+      await Auth.signUp({
+        username: email,
+        password,
+        attributes: {
+          email,
+          name,
+        },
+        autoSignIn: {
+          enabled: true,
+        },
+      });
+      Toast.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody: 'Confirmation code has been sent to your email address.',
+        autoClose: 2000,
+      });
+      moveToConfirm();
+    } catch (e) {
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: 'Something went wrong',
+        autoClose: 2000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [formValues, moveToConfirm]);
+
+  const confirmAccount = useCallback(async () => {
+    const {email, code} = formValues;
+    try {
+      setLoading(true);
+      await Auth.confirmSignUp(email, code);
+      Toast.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody: "You've successfully signed up.",
+        autoClose: 2000,
+      });
+      navigation.navigate('SignIn');
+    } catch (e) {
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: 'Wrong email or code.',
+        autoClose: 2000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [formValues]);
+
+  if (codeSent) {
+    return (
+      <View style={styles.root}>
+        <TouchableOpacity style={styles.back} onPress={back}>
+          <Ionicon name="arrow-back" size={21} color={colors.textColor} />
+        </TouchableOpacity>
+        <Text style={styles.title}>Confirm an account</Text>
+        <Text style={styles.subTitle}>
+          Please type code that we've just sent on your email address
+        </Text>
+        <UInput
+          value={formValues.email}
+          onChangeText={value => handleInputChange('email', value)}
+          style={styles.input}
+          label="Email"
+          placeholder="Enter Email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <UInput
+          value={formValues.code}
+          onChangeText={value => handleInputChange('code', value)}
+          style={styles.input}
+          label="Code"
+          placeholder="Enter Code"
+          keyboardType="numeric"
+        />
+        <UIButton
+          title="Confirm Account"
+          icon={
+            <AntDesignIcon name="arrowright" size={21} color={colors.white} />
+          }
+          onPress={confirmAccount}
+          isLoading={loading}
+        />
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.root}>
@@ -54,6 +169,8 @@ const SignUpScreen = () => {
         style={styles.input}
         label="Email"
         placeholder="Enter Email"
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
       <UInput
         value={formValues.password}
@@ -71,14 +188,17 @@ const SignUpScreen = () => {
         placeholder="Retype Password"
         secureTextEntry
       />
-      {/*<Text style={styles.forgot}>Forgot password?</Text>*/}
       <UIButton
         title="Sign up"
         icon={
           <AntDesignIcon name="arrowright" size={21} color={colors.white} />
         }
         onPress={signUp}
+        isLoading={loading}
       />
+      <TouchableOpacity onPress={moveToConfirm}>
+        <Text style={styles.confirm}>Confirm existing account</Text>
+      </TouchableOpacity>
       <View style={styles.orWrapper}>
         <View style={styles.orLine} />
         <Text style={styles.orText}>Or Sign up With</Text>

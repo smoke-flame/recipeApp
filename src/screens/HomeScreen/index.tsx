@@ -21,8 +21,12 @@ import {colors} from '../../constants/styles';
 import {useLazyGetRecipesQuery} from '../../service/RecipesService';
 import RecipePreview from '../../components/RecipePreview';
 import {useDebounce} from '../../hooks/useDebounce';
+import {useTypedSelector} from '../../hooks/useTypedSelector';
 
 const HomeScreen = () => {
+  const user = useTypedSelector(state => state.userReducer.user);
+  console.log(user);
+
   const [search, setSearch] = useState<string>('');
   const debouncedSearch = useDebounce<string>(search, 300);
   const [isReloading, setIsReloading] = useState<boolean>(false);
@@ -93,7 +97,7 @@ const HomeScreen = () => {
       <View>
         <View style={styles.header}>
           <View>
-            <Text style={styles.greetings}>Hello 'Name'</Text>
+            <Text style={styles.greetings}>Hello {user.attributes.name}</Text>
             <Text style={styles.whatToCook}>
               What do you want to cook today?
             </Text>

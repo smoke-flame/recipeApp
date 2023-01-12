@@ -1,5 +1,4 @@
 import React, {useCallback, useState} from 'react';
-
 import {Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './SignInScreen.style';
 import UInput from '../../components/UInput';
@@ -12,12 +11,18 @@ import GoogleIcon from '../../assets/img/google.svg';
 // @ts-ignore
 import FacebookIcon from '../../assets/img/facebook.svg';
 import {Link} from '@react-navigation/native';
+import {Auth} from 'aws-amplify';
+import {setUser} from '../../store/user/userSlice';
+import {useTypedDispatch} from '../../hooks/useTypedDispatch';
+import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 
 const SignInScreen = () => {
+  const dispatch = useTypedDispatch();
   const [formValues, setFormValues] = useState<IFormValues>({
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleInputChange = useCallback(
     (key: keyof IFormValues, value: string) => {
@@ -31,7 +36,29 @@ const SignInScreen = () => {
 
   const handleSocialAuth = useCallback(() => alert('Under constructions'), []);
 
-  const signIn = useCallback(() => alert('Under constructions'), []);
+  const signIn = useCallback(async () => {
+    const {email, password} = formValues;
+    try {
+      setLoading(true);
+      const user = await Auth.signIn(email, password);
+      dispatch(setUser(user));
+      Toast.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody: "You've successfully logged in",
+        autoClose: 2000,
+      });
+    } catch (e) {
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: 'No such user found',
+        autoClose: 2000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch, formValues]);
 
   return (
     <View style={styles.root}>
@@ -61,6 +88,7 @@ const SignInScreen = () => {
           <AntDesignIcon name="arrowright" size={21} color={colors.white} />
         }
         onPress={signIn}
+        isLoading={loading}
       />
       <View style={styles.orWrapper}>
         <View style={styles.orLine} />
