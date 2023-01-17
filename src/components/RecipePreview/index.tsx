@@ -1,6 +1,6 @@
 import React, {FC, useCallback, useMemo} from 'react';
 import {ImageBackground, Pressable, Text, View} from 'react-native';
-import {IRecipePreview} from '../../models/recipe';
+import {IRecipePreview} from '../../types/recipe';
 import {styles} from './Recipe.style';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors} from '../../constants/styles';

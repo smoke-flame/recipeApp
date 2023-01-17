@@ -12,9 +12,12 @@ import GoogleIcon from '../../assets/img/google.svg';
 import FacebookIcon from '../../assets/img/facebook.svg';
 import {Link} from '@react-navigation/native';
 import {Auth} from 'aws-amplify';
+import {DataStore} from '@aws-amplify/datastore';
 import {setUser} from '../../store/user/userSlice';
 import {useTypedDispatch} from '../../hooks/useTypedDispatch';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
+import {User} from '../../models';
+import {AuthUser} from '../../types/user';
 
 const SignInScreen = () => {
   const dispatch = useTypedDispatch();
@@ -40,15 +43,32 @@ const SignInScreen = () => {
     const {email, password} = formValues;
     try {
       setLoading(true);
-      const user = await Auth.signIn(email, password);
-      dispatch(setUser(user));
+      const user: AuthUser = await Auth.signIn(email, password);
+      const {name, email: userEmail, sub} = user.attributes;
       Toast.show({
         type: ALERT_TYPE.SUCCESS,
         title: 'Success',
         textBody: "You've successfully logged in",
         autoClose: 2000,
       });
+
+      const [dbUser] = await DataStore.query(User, usr => usr.userId.eq(sub));
+      if (dbUser) {
+        dispatch(setUser(dbUser));
+        return;
+      }
+      const newUser = await DataStore.save(
+        new User({
+          userId: sub,
+          name,
+          email: userEmail,
+          likedRecipes: [],
+          image: null,
+        }),
+      );
+      dispatch(setUser(newUser));
     } catch (e) {
+      //TODO: add errors config
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: 'Error',

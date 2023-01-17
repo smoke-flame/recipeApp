@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect} from 'react';
+import React, {FC} from 'react';
 import {
   NavigationContainer,
   ParamListBase,
@@ -23,9 +23,6 @@ import {IconsLibrary, RootStackParamList} from './types';
 import SignUpScreen from '../screens/SignUpScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import {useTypedSelector} from '../hooks/useTypedSelector';
-import {useTypedDispatch} from '../hooks/useTypedDispatch';
-import {Auth} from 'aws-amplify';
-import {setUser} from '../store/user/userSlice';
 
 const Tab = createBottomTabNavigator();
 
@@ -60,18 +57,6 @@ const GuestNavigation: FC = () => {
 const Navigator: FC = () => {
   const user = useTypedSelector(state => state.userReducer.user);
 
-  //TODO : move to initHook, add types for user and errors
-  const dispatch = useTypedDispatch();
-  const checkUser = useCallback(async () => {
-    const authenticatedUser = await Auth.currentAuthenticatedUser();
-    if (authenticatedUser) {
-      dispatch(setUser(authenticatedUser));
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    checkUser();
-  }, []);
   const tabBarIcon = (route: RouteProp<ParamListBase>, color: string) => {
     const iconsLibrary: IconsLibrary = {
       Home: <MaterialIcon name="home" size={33} color={color} />,

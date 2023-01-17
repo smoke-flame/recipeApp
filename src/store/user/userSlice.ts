@@ -1,7 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {LazyUser} from '../../models';
 
 interface IUserState {
-  user: any;
+  user: LazyUser | null;
   likedRecipes: unknown[];
 }
 
@@ -14,7 +15,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state: IUserState, action: PayloadAction<any>) {
+    setUser(state: IUserState, action: PayloadAction<LazyUser | null>) {
       state.user = action.payload;
     },
   },

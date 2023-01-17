@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "cookApp",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2023-01-17T18:19:43.670Z"
+}

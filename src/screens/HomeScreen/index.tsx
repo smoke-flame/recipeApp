@@ -22,10 +22,12 @@ import {useLazyGetRecipesQuery} from '../../service/RecipesService';
 import RecipePreview from '../../components/RecipePreview';
 import {useDebounce} from '../../hooks/useDebounce';
 import {useTypedSelector} from '../../hooks/useTypedSelector';
+import {useTypedNavigation} from '../../hooks/useTypedNavigation';
 
 const HomeScreen = () => {
   const user = useTypedSelector(state => state.userReducer.user);
-  console.log(user);
+  const navigator = useTypedNavigation();
+  // console.log(user);
 
   const [search, setSearch] = useState<string>('');
   const debouncedSearch = useDebounce<string>(search, 300);
@@ -89,6 +91,17 @@ const HomeScreen = () => {
     );
   }, [search, isReloading, data]);
 
+  useEffect(() => {
+    if (!user) {
+      navigator.navigate('Welcome');
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  if (!user) {
+    return <></>;
+  }
+
   return (
     <ScrollView
       style={styles.root}
@@ -97,7 +110,7 @@ const HomeScreen = () => {
       <View>
         <View style={styles.header}>
           <View>
-            <Text style={styles.greetings}>Hello {user.attributes.name}</Text>
+            <Text style={styles.greetings}>Hello {user.name}</Text>
             <Text style={styles.whatToCook}>
               What do you want to cook today?
             </Text>
