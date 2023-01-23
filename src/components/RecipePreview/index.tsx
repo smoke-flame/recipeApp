@@ -1,11 +1,11 @@
 import React, {FC, useCallback, useMemo} from 'react';
 import {ImageBackground, Pressable, Text, View} from 'react-native';
-import {IRecipePreview} from '../../types/recipe';
+import {IRecipePreview} from 'types/recipe';
 import {styles} from './Recipe.style';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors} from '../../constants/styles';
+import {colors} from 'constants/styles';
 import RecipeInfo from '../RecipeInfo';
-import {useTypedNavigation} from '../../hooks/useTypedNavigation';
+import {useTypedNavigation} from 'hooks/useTypedNavigation';
 
 const RecipePreview: FC<IRecipePreview> = ({
   image,

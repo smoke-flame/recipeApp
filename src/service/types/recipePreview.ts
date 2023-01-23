@@ -1,4 +1,4 @@
-import {IRecipePreview} from '../../types/recipe';
+import {IRecipePreview} from 'types/recipe';
 
 export interface RecipePreviewResponse {
   offset: number;

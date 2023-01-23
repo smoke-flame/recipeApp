@@ -4,8 +4,7 @@ import {
   RecipePreviewResponse,
   TransformedResponse,
 } from './types/recipePreview';
-// @ts-ignore
-import {COOK_API_HOST, COOK_API_KEY} from '@env';
+import {COOK_API_HOST, COOK_API_KEY, COOK_API_URL} from '@env';
 import {IRecipeInformation} from './types/recipeInformation';
 
 const perPage = 30;
@@ -17,7 +16,7 @@ const defaultHeaders = {
 export const recipesAPI = createApi({
   reducerPath: 'recipesAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/',
+    baseUrl: COOK_API_URL,
   }),
   endpoints: build => ({
     getRecipes: build.query<TransformedResponse, ISearchRecipeParams>({
@@ -40,7 +39,7 @@ export const recipesAPI = createApi({
         return {
           offset: offset + number,
           hasMore: number === perPage,
-          recipes: offset === 0 ? results : results,
+          recipes: results,
         };
       },
       serializeQueryArgs: ({queryArgs: {search}}) => search,

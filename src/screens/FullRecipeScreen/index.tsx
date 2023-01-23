@@ -10,14 +10,14 @@ import {
 } from 'react-native';
 import {styles} from './FullRecipeScreen.style';
 import {useRoute} from '@react-navigation/native';
-import {RootRouteProps} from '../../router/types';
-import {useGetRecipeInformationQuery} from '../../service/RecipesService';
-import {colors} from '../../constants/styles';
+import {RootRouteProps} from 'router/types';
+import {useGetRecipeInformationQuery} from 'service/RecipesService';
+import {colors} from 'constants/styles';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
-import {IRecipeInformation} from '../../service/types/recipeInformation';
-import RecipeInfo from '../../components/RecipeInfo';
+import {IRecipeInformation} from 'service/types/recipeInformation';
+import RecipeInfo from 'components/RecipeInfo';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useTypedNavigation} from '../../hooks/useTypedNavigation';
+import {useTypedNavigation} from 'hooks/useTypedNavigation';
 import Ingredients from './components/Ingredients';
 import Instructions from './components/Instructions';
 

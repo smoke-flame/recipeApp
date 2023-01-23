@@ -1,9 +1,8 @@
 import React, {FC} from 'react';
-
 import {Text, View} from 'react-native';
 import {styles} from './RecipeInfo.style';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
-import {colors} from '../../constants/styles';
+import {colors} from 'constants/styles';
 
 interface IProps {
   title: string;

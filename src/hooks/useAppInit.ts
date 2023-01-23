@@ -2,9 +2,9 @@ import {useTypedDispatch} from './useTypedDispatch';
 import {useCallback, useEffect} from 'react';
 import {Auth} from 'aws-amplify';
 import {DataStore} from '@aws-amplify/datastore';
-import {setUser} from '../store/user/userSlice';
-import {User} from '../models';
-import {AuthUser} from '../types/user';
+import {setUser} from 'store/user/userSlice';
+import {User} from 'models';
+import {AuthUser} from 'types/user';
 
 export const useAppInit = () => {
   const dispatch = useTypedDispatch();
@@ -35,11 +35,9 @@ export const useAppInit = () => {
     } catch (e) {
       console.log(e);
     }
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    checkUser();
-    // eslint-disable-next-line
+    checkUser().then();
   }, []);
 };

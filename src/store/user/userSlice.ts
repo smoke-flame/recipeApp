@@ -1,14 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {LazyUser} from '../../models';
+import {LazyUser} from 'models';
 
 interface IUserState {
   user: LazyUser | null;
-  likedRecipes: unknown[];
 }
 
 const initialState: IUserState = {
   user: null,
-  likedRecipes: [],
 };
 
 const userSlice = createSlice({

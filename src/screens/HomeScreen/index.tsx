@@ -15,19 +15,18 @@ import {
   View,
 } from 'react-native';
 import {styles} from './HomeScreen.style';
-import UInput from '../../components/UInput';
+import UInput from 'components/UInput';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import {colors} from '../../constants/styles';
-import {useLazyGetRecipesQuery} from '../../service/RecipesService';
-import RecipePreview from '../../components/RecipePreview';
-import {useDebounce} from '../../hooks/useDebounce';
-import {useTypedSelector} from '../../hooks/useTypedSelector';
-import {useTypedNavigation} from '../../hooks/useTypedNavigation';
+import {colors} from 'constants/styles';
+import {useLazyGetRecipesQuery} from 'service/RecipesService';
+import RecipePreview from 'components/RecipePreview';
+import {useDebounce} from 'hooks/useDebounce';
+import {useTypedSelector} from 'hooks/useTypedSelector';
+import {useTypedNavigation} from 'hooks/useTypedNavigation';
 
 const HomeScreen = () => {
   const user = useTypedSelector(state => state.userReducer.user);
   const navigator = useTypedNavigation();
-  // console.log(user);
 
   const [search, setSearch] = useState<string>('');
   const debouncedSearch = useDebounce<string>(search, 300);
@@ -43,7 +42,6 @@ const HomeScreen = () => {
     if (debouncedSearch.length) {
       trigger({search: debouncedSearch, offset: 0});
     }
-    // eslint-disable-next-line
   }, [debouncedSearch]);
 
   useEffect(() => setIsReloading(false), [data]);
@@ -95,7 +93,6 @@ const HomeScreen = () => {
     if (!user) {
       navigator.navigate('Welcome');
     }
-    // eslint-disable-next-line
   }, []);
 
   if (!user) {

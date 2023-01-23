@@ -1,23 +1,21 @@
 import React, {useCallback, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './SignInScreen.style';
-import UInput from '../../components/UInput';
+import UInput from 'components/UInput';
 import {IFormValues} from './types';
-import UIButton from '../../components/UIButton';
+import UIButton from 'components/UIButton';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
-import {colors} from '../../constants/styles';
-// @ts-ignore
-import GoogleIcon from '../../assets/img/google.svg';
-// @ts-ignore
-import FacebookIcon from '../../assets/img/facebook.svg';
+import {colors} from 'constants/styles';
+import GoogleIcon from 'assets/img/google.svg';
+import FacebookIcon from 'assets/img/facebook.svg';
 import {Link} from '@react-navigation/native';
 import {Auth} from 'aws-amplify';
 import {DataStore} from '@aws-amplify/datastore';
-import {setUser} from '../../store/user/userSlice';
-import {useTypedDispatch} from '../../hooks/useTypedDispatch';
+import {setUser} from 'store/user/userSlice';
+import {useTypedDispatch} from 'hooks/useTypedDispatch';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
-import {User} from '../../models';
-import {AuthUser} from '../../types/user';
+import {User} from 'models';
+import {AuthUser} from 'types/user';
 
 const SignInScreen = () => {
   const dispatch = useTypedDispatch();

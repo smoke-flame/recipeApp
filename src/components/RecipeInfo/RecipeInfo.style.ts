@@ -1,5 +1,5 @@
-import {colors, fontSizes} from '../../constants/styles';
-import {spacing} from '../../helpers/spacing';
+import {colors, fontSizes} from 'constants/styles';
+import {spacing} from 'helpers/spacing';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({

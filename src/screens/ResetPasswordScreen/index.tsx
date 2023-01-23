@@ -1,16 +1,14 @@
 import React, {useCallback, useState} from 'react';
-
 import {Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './ResetPasswordScreen.style';
-import UInput from '../../components/UInput';
+import UInput from 'components/UInput';
 import {IFormValues, resetStep} from './types';
-import UIButton from '../../components/UIButton';
+import UIButton from 'components/UIButton';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import {colors} from '../../constants/styles';
-import {useTypedNavigation} from '../../hooks/useTypedNavigation';
+import {colors} from 'constants/styles';
+import {useTypedNavigation} from 'hooks/useTypedNavigation';
 
-// Ionicons
 const ResetPasswordScreen = () => {
   const navigate = useTypedNavigation();
   const [step, setStep] = useState<resetStep>('email');

@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 
 import {Text, View} from 'react-native';
 import {styles} from './Instructions.style';
-import {IInstruction} from '../../../../service/types/recipeInformation';
+import {IInstruction} from 'service/types/recipeInformation';
 
 interface IProps {
   instructions: IInstruction[];

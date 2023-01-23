@@ -1,9 +1,9 @@
 import React, {useCallback} from 'react';
 import {View} from 'react-native';
-import UIButton from '../../components/UIButton';
+import UIButton from 'components/UIButton';
 import {Auth} from 'aws-amplify';
-import {useTypedDispatch} from '../../hooks/useTypedDispatch';
-import {setUser} from '../../store/user/userSlice';
+import {useTypedDispatch} from 'hooks/useTypedDispatch';
+import {setUser} from 'store/user/userSlice';
 
 const ProfileScreen = () => {
   const dispatch = useTypedDispatch();

@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import {styles} from './UIButton.style';
-import {colors} from '../../constants/styles';
+import {colors} from 'constants/styles';
 
 interface IProps extends ButtonProps {
   icon?: ReactNode;

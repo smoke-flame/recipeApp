@@ -2,7 +2,7 @@ import React, {forwardRef, ReactNode} from 'react';
 
 import {Text, TextInput, TextInputProps, View} from 'react-native';
 import {styles} from './UInput.style';
-import {colors} from '../../constants/styles';
+import {colors} from 'constants/styles';
 
 interface IProps extends TextInputProps {
   label?: string;

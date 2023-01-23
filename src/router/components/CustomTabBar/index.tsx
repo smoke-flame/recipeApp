@@ -1,8 +1,8 @@
 import {TouchableOpacity, View} from 'react-native';
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import {styles} from './CustomTabBar.style';
-import {colors} from '../../constants/styles';
+import {colors} from 'constants/styles';
 
 export const CustomTabBar: FC<BottomTabBarProps> = ({
   state,

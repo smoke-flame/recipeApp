@@ -2,13 +2,14 @@ import React, {FC, useCallback} from 'react';
 
 import {ImageBackground, Text, View} from 'react-native';
 import {styles} from './Ingredients.style';
-import {ExtendedIngredient} from '../../../../service/types/recipeInformation';
+import {ExtendedIngredient} from 'service/types/recipeInformation';
+// @ts-ignore
+import {BASE_PRODUCT_URL} from '@env';
 
 interface IProps {
   ingredients: ExtendedIngredient[];
 }
 
-const baseProductUrl = 'https://spoonacular.com/cdn/ingredients_100x100/';
 const Ingredients: FC<IProps> = ({ingredients}) => {
   const hasDuplicate = useCallback(
     (id: number) => {
@@ -29,7 +30,7 @@ const Ingredients: FC<IProps> = ({ingredients}) => {
             <View style={styles.ingredientLeft}>
               <View style={styles.ingredientImageWrapper}>
                 <ImageBackground
-                  source={{uri: baseProductUrl + ingredient.image}}
+                  source={{uri: BASE_PRODUCT_URL + ingredient.image}}
                   style={styles.ingredientImage}
                   resizeMode="cover"
                 />

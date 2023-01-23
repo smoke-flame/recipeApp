@@ -1,19 +1,16 @@
 import React, {useCallback, useState} from 'react';
-
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './SignUpScreen.style';
-import UInput from '../../components/UInput';
+import UInput from 'components/UInput';
 import {IFormValues} from './types';
-import UIButton from '../../components/UIButton';
+import UIButton from 'components/UIButton';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
-import {colors} from '../../constants/styles';
-// @ts-ignore
-import GoogleIcon from '../../assets/img/google.svg';
-// @ts-ignore
-import FacebookIcon from '../../assets/img/facebook.svg';
+import {colors} from 'constants/styles';
+import GoogleIcon from 'assets/img/google.svg';
+import FacebookIcon from 'assets/img/facebook.svg';
 import {Link} from '@react-navigation/native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import {useTypedNavigation} from '../../hooks/useTypedNavigation';
+import {useTypedNavigation} from 'hooks/useTypedNavigation';
 import {Auth} from 'aws-amplify';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 

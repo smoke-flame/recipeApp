@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {colors, fontSizes} from '../../constants/styles';
-import {spacing} from '../../helpers/spacing';
+import {colors, fontSizes} from 'constants/styles';
+import {spacing} from 'helpers/spacing';
 
 export const styles = StyleSheet.create({
   root: {
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     top: '50%',
     left: 8,
     width: 16,
-    transform: [{translateY: -8}],
+    transform: [{translateY: -13}],
   },
   inputPadding: {
     paddingLeft: 32,
