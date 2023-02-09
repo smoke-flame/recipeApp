@@ -1,13 +1,13 @@
 import React from 'react';
-import Navigator from './src/router/Navigator';
 import {StatusBar, View} from 'react-native';
 import {colors} from 'constants/styles';
-import config from './src/aws-exports';
 import {Amplify} from 'aws-amplify';
 import {AlertNotificationRoot} from 'react-native-alert-notification';
 import {useAppInit} from 'hooks/useAppInit';
 import {store} from 'store/store';
 import {Provider} from 'react-redux';
+import Navigator from 'router/Navigator';
+import config from './src/aws-exports';
 
 Amplify.configure(config);
 

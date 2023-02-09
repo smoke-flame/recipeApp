@@ -8,7 +8,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import {styles} from './FullRecipeScreen.style';
 import {useRoute} from '@react-navigation/native';
 import {RootRouteProps} from 'router/types';
 import {useGetRecipeInformationQuery} from 'service/RecipesService';
@@ -18,8 +17,9 @@ import {IRecipeInformation} from 'service/types/recipeInformation';
 import RecipeInfo from 'components/RecipeInfo';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTypedNavigation} from 'hooks/useTypedNavigation';
-import Ingredients from './components/Ingredients';
-import Instructions from './components/Instructions';
+import Ingredients from 'screens/FullRecipeScreen/components/Ingredients';
+import Instructions from 'screens/FullRecipeScreen/components/Instructions';
+import {styles} from './FullRecipeScreen.style';
 
 const FullRecipeScreen = () => {
   const navigation = useTypedNavigation();
@@ -48,7 +48,7 @@ const FullRecipeScreen = () => {
     );
   }
   if (!data) {
-    return <></>;
+    return null;
   }
 
   return (

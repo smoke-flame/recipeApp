@@ -6,19 +6,37 @@ export const styles = StyleSheet.create({
   root: {
     position: 'relative',
   },
-  title: {
-    fontSize: fontSizes.xxl,
+  header: {
+    paddingHorizontal: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: spacing(1),
+  },
+  headerText: {
+    color: colors.light,
+  },
+  headerTitle: {
+    fontSize: fontSizes.xl,
     fontWeight: '600',
     color: colors.titleColor,
-    textAlign: 'center',
-    marginBottom: spacing(1),
   },
   list: {
     paddingHorizontal: 15,
   },
   step: {
-    fontSize: fontSizes.xl,
-    color: colors.textColor,
     marginBottom: spacing(2),
+    backgroundColor: 'rgba(217, 217, 217, 0.5)',
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
+  stepTitle: {
+    fontSize: fontSizes.sm,
+    fontWeight: '600',
+    marginBottom: spacing(1),
+  },
+  stepText: {
+    fontSize: fontSizes.sm,
+    color: colors.light,
   },
 });

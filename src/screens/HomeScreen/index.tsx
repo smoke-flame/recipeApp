@@ -14,7 +14,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import {styles} from './HomeScreen.style';
 import UInput from 'components/UInput';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {colors} from 'constants/styles';
@@ -23,6 +22,7 @@ import RecipePreview from 'components/RecipePreview';
 import {useDebounce} from 'hooks/useDebounce';
 import {useTypedSelector} from 'hooks/useTypedSelector';
 import {useTypedNavigation} from 'hooks/useTypedNavigation';
+import {styles} from './HomeScreen.style';
 
 const HomeScreen = () => {
   const user = useTypedSelector(state => state.userReducer.user);
@@ -42,14 +42,14 @@ const HomeScreen = () => {
     if (debouncedSearch.length) {
       trigger({search: debouncedSearch, offset: 0});
     }
-  }, [debouncedSearch]);
+  }, [debouncedSearch, trigger]);
 
   useEffect(() => setIsReloading(false), [data]);
   useEffect(() => setIsReloading(!!search), [search]);
 
   const handleScrollEnd = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-      const height = e.nativeEvent.layoutMeasurement.height;
+      const {height} = e.nativeEvent.layoutMeasurement;
       const position = e.nativeEvent.contentOffset.y;
       const contentHeight = e.nativeEvent.contentSize.height;
       const isScrolledEnd = height + position >= contentHeight - 400;
@@ -93,10 +93,10 @@ const HomeScreen = () => {
     if (!user) {
       navigator.navigate('Welcome');
     }
-  }, []);
+  }, [navigator, user]);
 
   if (!user) {
-    return <></>;
+    return null;
   }
 
   return (

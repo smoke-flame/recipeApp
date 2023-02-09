@@ -1,22 +1,26 @@
 import React, {useCallback, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {styles} from './ResetPasswordScreen.style';
 import UInput from 'components/UInput';
-import {IFormValues, resetStep} from './types';
+import {IFormValues, resetStep} from 'screens/ResetPasswordScreen/types';
 import UIButton from 'components/UIButton';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import {colors} from 'constants/styles';
 import {useTypedNavigation} from 'hooks/useTypedNavigation';
+import {Auth} from 'aws-amplify';
+import {AwsAuthError} from 'types/errors';
+import {errorAlert, successAlert} from 'libs/notifications';
+import {styles} from './ResetPasswordScreen.style';
 
 const ResetPasswordScreen = () => {
-  const navigate = useTypedNavigation();
+  const navigation = useTypedNavigation();
   const [step, setStep] = useState<resetStep>('email');
   const [formValues, setFormValues] = useState<IFormValues>({
     email: '',
     password: '',
     code: '',
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleInputChange = useCallback(
     (key: keyof IFormValues, value: string) => {
@@ -28,11 +32,41 @@ const ResetPasswordScreen = () => {
     [],
   );
 
-  const back = useCallback(() => navigate.goBack(), [navigate]);
+  const back = useCallback(() => navigation.goBack(), [navigation]);
 
-  const sendEmail = useCallback(() => setStep('code'), []);
-  const sendCode = useCallback(() => setStep('password'), []);
-  const sendPassword = useCallback(() => alert('success'), []);
+  const sendEmail = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      await Auth.forgotPassword(formValues.email);
+      successAlert('Confirmation code has been sent to your email address.');
+      setStep('code');
+    } catch (e) {
+      const {message} = e as AwsAuthError;
+      errorAlert(message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [formValues.email]);
+
+  const proceedWithCode = useCallback(() => setStep('password'), []);
+
+  const sendPassword = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      await Auth.forgotPasswordSubmit(
+        formValues.email,
+        formValues.code,
+        formValues.password,
+      );
+      successAlert("You've successfully changed your password.");
+      navigation.navigate('SignIn');
+    } catch (e) {
+      const {message} = e as AwsAuthError;
+      errorAlert(message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [navigation, formValues]);
 
   return (
     <View style={styles.root}>
@@ -57,6 +91,7 @@ const ResetPasswordScreen = () => {
               <AntDesignIcon name="arrowright" size={21} color={colors.white} />
             }
             onPress={sendEmail}
+            isLoading={isLoading}
           />
         </>
       )}
@@ -74,7 +109,7 @@ const ResetPasswordScreen = () => {
             icon={
               <AntDesignIcon name="arrowright" size={21} color={colors.white} />
             }
-            onPress={sendCode}
+            onPress={proceedWithCode}
           />
         </>
       )}
@@ -86,6 +121,7 @@ const ResetPasswordScreen = () => {
             style={styles.input}
             label="Password"
             placeholder="Enter New Password"
+            secureTextEntry
           />
           <UIButton
             title="Set New Password"
@@ -93,6 +129,7 @@ const ResetPasswordScreen = () => {
               <AntDesignIcon name="arrowright" size={21} color={colors.white} />
             }
             onPress={sendPassword}
+            isLoading={isLoading}
           />
         </>
       )}

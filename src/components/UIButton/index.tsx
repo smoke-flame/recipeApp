@@ -1,5 +1,4 @@
 import React, {FC, ReactNode, useCallback} from 'react';
-
 import {
   ActivityIndicator,
   ButtonProps,
@@ -8,8 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {styles} from './UIButton.style';
 import {colors} from 'constants/styles';
+import {styles} from './UIButton.style';
 
 interface IProps extends ButtonProps {
   icon?: ReactNode;
@@ -22,7 +21,7 @@ const UIButton: FC<IProps> = ({isLoading, title, icon, onPress}) => {
       if (isLoading) {
         return;
       }
-      onPress && onPress(e);
+      if (onPress) onPress(e);
     },
     [isLoading, onPress],
   );

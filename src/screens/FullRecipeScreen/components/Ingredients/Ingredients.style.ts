@@ -4,7 +4,7 @@ import {spacing} from 'helpers/spacing';
 
 export const styles = StyleSheet.create({
   root: {
-    marginBottom: spacing(1),
+    marginBottom: spacing(2),
   },
   ingredientsHeader: {
     flexDirection: 'row',
@@ -31,6 +31,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: spacing(1),
+    backgroundColor: 'rgba(217, 217, 217, 0.5)',
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   ingredientLeft: {
     flexDirection: 'row',
@@ -52,6 +56,6 @@ export const styles = StyleSheet.create({
     fontSize: fontSizes.md,
     fontWeight: '600',
     color: colors.titleColor,
-    maxWidth: '80%',
+    maxWidth: '75%',
   },
 });

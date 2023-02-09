@@ -1,10 +1,9 @@
 import React, {FC, useCallback} from 'react';
-
 import {ImageBackground, Text, View} from 'react-native';
-import {styles} from './Ingredients.style';
 import {ExtendedIngredient} from 'service/types/recipeInformation';
 // @ts-ignore
 import {BASE_PRODUCT_URL} from '@env';
+import {styles} from './Ingredients.style';
 
 interface IProps {
   ingredients: ExtendedIngredient[];
@@ -12,9 +11,8 @@ interface IProps {
 
 const Ingredients: FC<IProps> = ({ingredients}) => {
   const hasDuplicate = useCallback(
-    (id: number) => {
-      return ingredients.filter(ingredient => ingredient.id === id).length > 1;
-    },
+    (id: number) =>
+      ingredients.filter(ingredient => ingredient.id === id).length > 1,
     [ingredients],
   );
 

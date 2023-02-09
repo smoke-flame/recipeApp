@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {configureStore} from '@reduxjs/toolkit';
-import userReducer from './user/userSlice';
+import userReducer from 'store/user/userSlice';
 import {recipesAPI} from 'service/RecipesService';
 import {setupListeners} from '@reduxjs/toolkit/query';
 

@@ -1,12 +1,12 @@
-import HomeScreen from './HomeScreen';
-import SearchScreen from './SearchScreen';
-import FavoriteScreen from './FavoritesScreen';
-import ProfileScreen from './ProfileScreen';
-import WelcomeScreen from './WelcomeScreen';
-import FullRecipeScreen from './FullRecipeScreen';
-import SignInScreen from './SignInScreen';
-import SignUpScreen from './SignUpScreen';
-import ResetPasswordScreen from './ResetPasswordScreen';
+import HomeScreen from 'screens/HomeScreen';
+import SearchScreen from 'screens/SearchScreen';
+import FavoriteScreen from 'screens/FavoritesScreen';
+import ProfileScreen from 'screens/ProfileScreen';
+import WelcomeScreen from 'screens/WelcomeScreen';
+import FullRecipeScreen from 'screens/FullRecipeScreen';
+import SignInScreen from 'screens/SignInScreen';
+import SignUpScreen from 'screens/SignUpScreen';
+import ResetPasswordScreen from 'screens/ResetPasswordScreen';
 
 export {
   HomeScreen,

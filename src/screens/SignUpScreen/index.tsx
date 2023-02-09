@@ -1,8 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {styles} from './SignUpScreen.style';
 import UInput from 'components/UInput';
-import {IFormValues} from './types';
 import UIButton from 'components/UIButton';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {colors} from 'constants/styles';
@@ -12,7 +10,10 @@ import {Link} from '@react-navigation/native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import {useTypedNavigation} from 'hooks/useTypedNavigation';
 import {Auth} from 'aws-amplify';
-import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
+import {IFormValues} from 'screens/SignUpScreen/types';
+import {AwsAuthError} from 'types/errors';
+import {errorAlert, successAlert} from 'libs/notifications';
+import {styles} from './SignUpScreen.style';
 
 const SignUpScreen = () => {
   const navigation = useTypedNavigation();
@@ -40,16 +41,15 @@ const SignUpScreen = () => {
 
   const moveToConfirm = useCallback(() => setCodeSent(true), []);
 
-  const handleSocialAuth = useCallback(() => alert('Under constructions'), []);
+  const handleSocialAuth = useCallback(
+    () => errorAlert('Under constructions'),
+    [],
+  );
 
   const signUp = useCallback(async () => {
     const {name, confirmPassword, password, email} = formValues;
     if (password !== confirmPassword) {
-      Toast.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error',
-        textBody: "Confirm password doesn't match",
-      });
+      errorAlert("Confirm password doesn't match");
       return;
     }
     try {
@@ -65,20 +65,11 @@ const SignUpScreen = () => {
           enabled: true,
         },
       });
-      Toast.show({
-        type: ALERT_TYPE.SUCCESS,
-        title: 'Success',
-        textBody: 'Confirmation code has been sent to your email address.',
-        autoClose: 2000,
-      });
+      successAlert('Confirmation code has been sent to your email address.');
       moveToConfirm();
     } catch (e) {
-      Toast.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error',
-        textBody: 'Something went wrong',
-        autoClose: 2000,
-      });
+      const {message} = e as AwsAuthError;
+      errorAlert(message);
     } finally {
       setLoading(false);
     }
@@ -89,24 +80,15 @@ const SignUpScreen = () => {
     try {
       setLoading(true);
       await Auth.confirmSignUp(email, code);
-      Toast.show({
-        type: ALERT_TYPE.SUCCESS,
-        title: 'Success',
-        textBody: "You've successfully signed up.",
-        autoClose: 2000,
-      });
+      successAlert("You've successfully signed up.");
       navigation.navigate('SignIn');
     } catch (e) {
-      Toast.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error',
-        textBody: 'Wrong email or code.',
-        autoClose: 2000,
-      });
+      const {message} = e as AwsAuthError;
+      errorAlert(message);
     } finally {
       setLoading(false);
     }
-  }, [formValues]);
+  }, [formValues, navigation]);
 
   if (codeSent) {
     return (
@@ -116,7 +98,7 @@ const SignUpScreen = () => {
         </TouchableOpacity>
         <Text style={styles.title}>Confirm an account</Text>
         <Text style={styles.subTitle}>
-          Please type code that we've just sent on your email address
+          Please type code that we&apos;ve just sent on your email address
         </Text>
         <UInput
           value={formValues.email}

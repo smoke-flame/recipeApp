@@ -1,8 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {styles} from './SignInScreen.style';
 import UInput from 'components/UInput';
-import {IFormValues} from './types';
+import {IFormValues} from 'screens/SignInScreen/types';
 import UIButton from 'components/UIButton';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {colors} from 'constants/styles';
@@ -13,9 +12,11 @@ import {Auth} from 'aws-amplify';
 import {DataStore} from '@aws-amplify/datastore';
 import {setUser} from 'store/user/userSlice';
 import {useTypedDispatch} from 'hooks/useTypedDispatch';
-import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {User} from 'models';
 import {AuthUser} from 'types/user';
+import {AwsAuthError} from 'types/errors';
+import {errorAlert, successAlert} from 'libs/notifications';
+import {styles} from './SignInScreen.style';
 
 const SignInScreen = () => {
   const dispatch = useTypedDispatch();
@@ -35,21 +36,18 @@ const SignInScreen = () => {
     [],
   );
 
-  const handleSocialAuth = useCallback(() => alert('Under constructions'), []);
+  const handleSocialAuth = useCallback(
+    () => errorAlert('Under constructions'),
+    [],
+  );
 
   const signIn = useCallback(async () => {
     const {email, password} = formValues;
     try {
       setLoading(true);
       const user: AuthUser = await Auth.signIn(email, password);
+      successAlert("You've successfully logged in");
       const {name, email: userEmail, sub} = user.attributes;
-      Toast.show({
-        type: ALERT_TYPE.SUCCESS,
-        title: 'Success',
-        textBody: "You've successfully logged in",
-        autoClose: 2000,
-      });
-
       const [dbUser] = await DataStore.query(User, usr => usr.userId.eq(sub));
       if (dbUser) {
         dispatch(setUser(dbUser));
@@ -66,13 +64,8 @@ const SignInScreen = () => {
       );
       dispatch(setUser(newUser));
     } catch (e) {
-      //TODO: add errors config
-      Toast.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error',
-        textBody: 'No such user found',
-        autoClose: 2000,
-      });
+      const {message} = e as AwsAuthError;
+      errorAlert(message);
     } finally {
       setLoading(false);
     }

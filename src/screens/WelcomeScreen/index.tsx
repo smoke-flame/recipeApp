@@ -2,11 +2,11 @@ import React, {useCallback} from 'react';
 import {Image, ImageBackground, Text, View} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
-import {styles} from './WelcomeScreen.style';
 import bgImage from 'assets/img/welcomeBg.png';
 import {colors} from 'constants/styles';
 import UIButton from 'components/UIButton';
 import {useTypedNavigation} from 'hooks/useTypedNavigation';
+import {styles} from './WelcomeScreen.style';
 
 const bgUri = Image.resolveAssetSource(bgImage).uri;
 

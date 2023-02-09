@@ -3,9 +3,9 @@ import {
   ISearchRecipeParams,
   RecipePreviewResponse,
   TransformedResponse,
-} from './types/recipePreview';
+} from 'service/types/recipePreview';
 import {COOK_API_HOST, COOK_API_KEY, COOK_API_URL} from '@env';
-import {IRecipeInformation} from './types/recipeInformation';
+import {IRecipeInformation} from 'service/types/recipeInformation';
 
 const perPage = 30;
 const defaultHeaders = {
@@ -35,13 +35,11 @@ export const recipesAPI = createApi({
         offset,
         results,
         number,
-      }: RecipePreviewResponse): TransformedResponse => {
-        return {
-          offset: offset + number,
-          hasMore: number === perPage,
-          recipes: results,
-        };
-      },
+      }: RecipePreviewResponse): TransformedResponse => ({
+        offset: offset + number,
+        hasMore: number === perPage,
+        recipes: results,
+      }),
       serializeQueryArgs: ({queryArgs: {search}}) => search,
       merge: (currentCache, newCache) => {
         currentCache.recipes.push(...newCache.recipes);

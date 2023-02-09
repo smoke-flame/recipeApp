@@ -5,11 +5,9 @@ import {RootStackParamList} from 'router/types';
 
 const HomeStack = createNativeStackNavigator<RootStackParamList>();
 
-export const HomeNavigation: FC = () => {
-  return (
-    <HomeStack.Navigator screenOptions={{headerShown: false}}>
-      <HomeStack.Screen name="Feed" component={HomeScreen} />
-      <HomeStack.Screen name="FullRecipe" component={FullRecipeScreen} />
-    </HomeStack.Navigator>
-  );
-};
+export const HomeNavigation: FC = () => (
+  <HomeStack.Navigator screenOptions={{headerShown: false}}>
+    <HomeStack.Screen name="Feed" component={HomeScreen} />
+    <HomeStack.Screen name="FullRecipe" component={FullRecipeScreen} />
+  </HomeStack.Navigator>
+);
