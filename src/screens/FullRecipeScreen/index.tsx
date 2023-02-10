@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useMemo} from 'react';
 
 import {
   ActivityIndicator,
@@ -19,14 +19,20 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import {useTypedNavigation} from 'hooks/useTypedNavigation';
 import Ingredients from 'screens/FullRecipeScreen/components/Ingredients';
 import Instructions from 'screens/FullRecipeScreen/components/Instructions';
+import {useTypedSelector} from 'hooks/useTypedSelector';
+import {useRecipe} from 'hooks/useRecipe';
+import {Recipe} from 'models';
 import {styles} from './FullRecipeScreen.style';
 
 const FullRecipeScreen = () => {
   const navigation = useTypedNavigation();
+  const {saveRecipe, removeRecipe} = useRecipe();
+
   const {
     params: {id},
   } = useRoute<RootRouteProps<'FullRecipe'>>();
   const {data, isLoading} = useGetRecipeInformationQuery(id);
+  const user = useTypedSelector(state => state.userReducer.user);
 
   const {
     readyInMinutes,
@@ -36,9 +42,38 @@ const FullRecipeScreen = () => {
     vegetarian,
     extendedIngredients,
     analyzedInstructions,
+    pricePerServing,
   } = data || ({} as IRecipeInformation);
-  console.log(JSON.stringify(analyzedInstructions, null, 2));
-  console.log(analyzedInstructions?.length);
+
+  const isSaved = useMemo(
+    () => user!.likedRecipes?.includes(id) || false,
+    [id, user],
+  );
+
+  const handleToggle = useCallback(async () => {
+    if (isSaved) {
+      await removeRecipe(id);
+    } else {
+      await saveRecipe({
+        title,
+        image,
+        servings,
+        readyInMinutes,
+        recipeId: id,
+        pricePerServing,
+      } as Recipe);
+    }
+  }, [
+    pricePerServing,
+    isSaved,
+    removeRecipe,
+    id,
+    saveRecipe,
+    title,
+    image,
+    servings,
+    readyInMinutes,
+  ]);
 
   if (isLoading) {
     return (
@@ -77,6 +112,8 @@ const FullRecipeScreen = () => {
             title={title}
             servings={servings}
             readyInMinutes={readyInMinutes}
+            saved={isSaved}
+            onToggle={handleToggle}
           />
         </View>
       </View>

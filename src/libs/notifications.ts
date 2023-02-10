@@ -11,7 +11,15 @@ export const successAlert = (message: string): void => {
 export const errorAlert = (message: string): void => {
   Toast.show({
     type: ALERT_TYPE.DANGER,
-    title: 'Success',
+    title: 'Error',
+    textBody: message,
+    autoClose: 2000,
+  });
+};
+export const infoAlert = (message: string): void => {
+  Toast.show({
+    type: ALERT_TYPE.WARNING,
+    title: 'Info',
     textBody: message,
     autoClose: 2000,
   });

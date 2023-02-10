@@ -4,41 +4,7 @@ import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
 
 
-type EagerIngredientJSON = {
-  readonly id?: number | null;
-  readonly amount?: number | null;
-  readonly original?: string | null;
-  readonly image?: string | null;
-  readonly unit?: number | null;
-}
 
-type LazyIngredientJSON = {
-  readonly id?: number | null;
-  readonly amount?: number | null;
-  readonly original?: string | null;
-  readonly image?: string | null;
-  readonly unit?: number | null;
-}
-
-export declare type IngredientJSON = LazyLoading extends LazyLoadingDisabled ? EagerIngredientJSON : LazyIngredientJSON
-
-export declare const IngredientJSON: (new (init: ModelInit<IngredientJSON>) => IngredientJSON)
-
-type EagerInstructionJSON = {
-  readonly id?: number | null;
-  readonly number?: number | null;
-  readonly step?: string | null;
-}
-
-type LazyInstructionJSON = {
-  readonly id?: number | null;
-  readonly number?: number | null;
-  readonly step?: string | null;
-}
-
-export declare type InstructionJSON = LazyLoading extends LazyLoadingDisabled ? EagerInstructionJSON : LazyInstructionJSON
-
-export declare const InstructionJSON: (new (init: ModelInit<InstructionJSON>) => InstructionJSON)
 
 type EagerUser = {
   readonly [__modelMeta__]: {
@@ -86,9 +52,8 @@ type EagerRecipe = {
   readonly image?: string | null;
   readonly servings: number;
   readonly readyInMinutes: number;
-  readonly instructions: InstructionJSON[];
-  readonly ingredients: IngredientJSON[];
   readonly recipeId: number;
+  readonly pricePerServing: number;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -103,9 +68,8 @@ type LazyRecipe = {
   readonly image?: string | null;
   readonly servings: number;
   readonly readyInMinutes: number;
-  readonly instructions: InstructionJSON[];
-  readonly ingredients: IngredientJSON[];
   readonly recipeId: number;
+  readonly pricePerServing: number;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
