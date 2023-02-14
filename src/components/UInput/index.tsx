@@ -7,11 +7,13 @@ import {styles} from './UInput.style';
 interface IProps extends TextInputProps {
   label?: string;
   leftIcon?: ReactNode;
+  disabled?: boolean;
 }
 
 const UInput = forwardRef<TextInput, IProps>(
   (
     {
+      disabled,
       secureTextEntry,
       style,
       value,
@@ -29,12 +31,18 @@ const UInput = forwardRef<TextInput, IProps>(
         <TextInput
           secureTextEntry={secureTextEntry}
           value={value}
-          style={[styles.input, style, leftIcon ? styles.inputPadding : {}]}
+          style={[
+            styles.input,
+            style,
+            leftIcon ? styles.inputPadding : {},
+            disabled ? styles.disabled : {},
+          ]}
           ref={ref}
           placeholder={placeholder}
           placeholderTextColor={colors.placeholder}
           onChangeText={onChangeText}
           autoCorrect
+          editable={!disabled}
           {...rest}
         />
         {leftIcon && <View style={styles.overlayIcon}>{leftIcon}</View>}

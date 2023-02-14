@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import {
   ActivityIndicator,
-  Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
   ScrollView,
@@ -15,6 +14,7 @@ import {
   View,
 } from 'react-native';
 import UInput from 'components/UInput';
+import UserAvatar from 'components/UserAvatar';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {colors} from 'constants/styles';
 import {useLazyGetRecipesQuery} from 'service/RecipesService';
@@ -112,10 +112,7 @@ const HomeScreen = () => {
               What do you want to cook today?
             </Text>
           </View>
-          <Image
-            style={styles.userImage}
-            source={{uri: 'https://via.placeholder.com/150'}}
-          />
+          <UserAvatar user={user} size="sm" />
         </View>
         <UInput
           placeholder="Search Recipes"

@@ -29,7 +29,10 @@ export const styles = StyleSheet.create({
   },
   label: {
     fontSize: fontSizes.md,
-    marginBottom: spacing(1.5),
+    marginBottom: spacing(0.5),
     color: colors.textColor,
+  },
+  disabled: {
+    backgroundColor: colors.gray,
   },
 });

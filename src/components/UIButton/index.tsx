@@ -13,9 +13,10 @@ import {styles} from './UIButton.style';
 interface IProps extends ButtonProps {
   icon?: ReactNode;
   isLoading?: boolean;
+  color?: string;
 }
 
-const UIButton: FC<IProps> = ({isLoading, title, icon, onPress}) => {
+const UIButton: FC<IProps> = ({color, isLoading, title, icon, onPress}) => {
   const handlePress = useCallback(
     (e: GestureResponderEvent) => {
       if (isLoading) {
@@ -27,7 +28,7 @@ const UIButton: FC<IProps> = ({isLoading, title, icon, onPress}) => {
   );
   return (
     <TouchableOpacity onPress={handlePress} style={{width: '100%'}}>
-      <View style={styles.root}>
+      <View style={[styles.root, color ? {backgroundColor: color} : {}]}>
         <View style={styles.container}>
           {isLoading ? (
             <ActivityIndicator size="small" color={colors.white} />
