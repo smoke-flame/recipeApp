@@ -9,7 +9,9 @@ import {Provider} from 'react-redux';
 import Navigator from 'router/Navigator';
 import config from './src/aws-exports';
 
-Amplify.configure(config);
+Amplify.configure({
+  ...config,
+});
 
 const App = () => {
   useAppInit();

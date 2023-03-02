@@ -38,6 +38,8 @@ const HomeScreen = () => {
   );
   const [trigger, {data}] = useLazyGetRecipesQuery();
 
+  // console.log(data?.recipes.map(r => r.id));
+
   useEffect(() => {
     if (debouncedSearch.length) {
       trigger({search: debouncedSearch, offset: 0});

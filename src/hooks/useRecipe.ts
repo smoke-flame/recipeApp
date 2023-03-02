@@ -43,12 +43,14 @@ export const useRecipe = (): returnType => {
 
   const getRecipes = async () => {
     if (!user) return [];
-    const userRecipes = (user.likedRecipes || []).map(async recipeId => {
-      const [recipe] = await DataStore.query(Recipe, usr =>
-        usr.recipeId.eq(recipeId),
-      );
-      return recipe;
-    });
+    const userRecipes = [...new Set(user.likedRecipes || [])].map(
+      async recipeId => {
+        const [recipe] = await DataStore.query(Recipe, usr =>
+          usr.recipeId.eq(recipeId),
+        );
+        return recipe;
+      },
+    );
     return Promise.all(userRecipes);
   };
 

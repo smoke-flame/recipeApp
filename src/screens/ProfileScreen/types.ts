@@ -1,9 +1,9 @@
 export interface IChangeUserValues {
   image: string | null | undefined;
   name: string;
-  sex: sex | null;
+  gender: gender | null;
   id: string;
-  birthdayDate: Date | null;
+  birthdayDate: string | null;
 }
 
-type sex = 'male' | 'female';
+export type gender = 'male' | 'female';

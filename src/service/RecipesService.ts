@@ -42,7 +42,11 @@ export const recipesAPI = createApi({
       }),
       serializeQueryArgs: ({queryArgs: {search}}) => search,
       merge: (currentCache, newCache) => {
-        currentCache.recipes.push(...newCache.recipes);
+        if (
+          JSON.stringify(currentCache.recipes) !==
+          JSON.stringify(newCache.recipes)
+        )
+          currentCache.recipes.push(...newCache.recipes);
       },
       forceRefetch: ({currentArg, previousArg}) =>
         currentArg?.search !== previousArg?.search,
